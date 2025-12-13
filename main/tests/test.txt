@@ -1,0 +1,30 @@
+--input
+Введите текст: New test text
+Введите id текста: a1
+текст записан
+--input
+Введите текст: Vladimir Putin
+Введите id текста: a1
+текст записан
+--input
+Введите текст: abcdefghijklmnopqrstuvwxyz
+Введите id текста: b2
+текст записан
+--input
+Введите текст: The quick brown fox jumps over the lazy dog
+Введите id текста: b2
+текст записан
+--key
+Ваш ключ : 17
+--key
+Ваш ключ : 18
+--output
+Введите id : a1
+Fwo lwkl lwpl
+Ndsvaeaj Hmlaf
+--key
+Ваш ключ : 10
+--output
+Введите id : b2
+klmnopqrstuvwxyzabcdefghij
+Dro aesmu lbygx pyh tewzc yfob dro vkji nyq
