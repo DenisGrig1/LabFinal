@@ -9,6 +9,8 @@
 4. Создание интерфейса;
 5. Тестирование всей программы, исправление ошибок;
 6. Оформление отчёта;
+<img width="977" height="145" alt="image" src="https://github.com/user-attachments/assets/40eac6d3-33ed-47b1-bcc5-81d98b84f0ef" />
+
 
 ## Ресурсы: 
 C++, Visual Studio 2022.
