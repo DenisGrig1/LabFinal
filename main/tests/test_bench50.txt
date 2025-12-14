@@ -6,4 +6,4 @@
 Ваш ключ : 17
 Введите id : bench1
 gyhxyldvrpcecwuowzitmjtoxxsnbwehulonwewfqmjikbagiv
-Время выполнения функции составило 0.0043988 секунд
+Время выполнения функции составило 0,0024517 секунд
