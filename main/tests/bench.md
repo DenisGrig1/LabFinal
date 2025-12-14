@@ -1,5 +1,15 @@
 Бенчмаркинг проводился с помощью функций std::chrono, замерялось время выполнения тех функци1, которые отвечают за шифровку текста и его запись в log.json.
 
+auto start = chrono::steady_clock::now();
+//
+texts = read_json(id, key);
+for (string text : texts) cout << text << "\n";
+create_log_json(texts, id, key);
+//
+auto end = chrono::steady_clock::now();
+chrono::duration<double> duration = end - start;
+cout << "Время выполнения функции составило " << duration.count() << " секунд";
+
 | Количество символов  | Время выполнения функции (сек) |
 |----------------------|--------------------------------|
 | 50                   | 0,0024517                      |
