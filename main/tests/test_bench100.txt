@@ -1,0 +1,9 @@
+--input
+Введите текст: phqghumeaylnlfdxfircvscxggbwkfnqduxwfnfozvsrtkjprepggxrpnrvystmwcysyycqpevikeffmznimkkasvwsrenzkycxf
+Введите id текста: bench2
+текст записан
+--output
+Ваш ключ : 17
+Введите id : bench2
+gyhxyldvrpcecwuowzitmjtoxxsnbwehulonwewfqmjikbagivgxxoigeimpjkdntpjppthgvmzbvwwdqezdbbrjmnjiveqbptow
+Время выполнения функции составило 0.0033258 секунд
