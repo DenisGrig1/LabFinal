@@ -1,18 +1,18 @@
 Бенчмаркинг проводился с помощью std::chrono, замерялось время выполнения функции caesar(), которая отвечает за шифровку текста.
 
-string rand_text(int n) {
+	string rand_text(int n) {
 
-	string text;
+		string text;
   
-	for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
   
-		text += char(97 + rand() % 26);
+			text += char(97 + rand() % 26);
     
+		}
+  
+		return text;
+  
 	}
-  
-	return text;
-  
-}
 
 
 string text = rand_text(1000);
