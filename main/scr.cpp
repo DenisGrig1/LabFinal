@@ -3,40 +3,42 @@
 #include <string>
 #include <vector>
 #include "Header.h"
+#include <cstdio>
+#include <filesystem>
 using namespace std;
 
 int main() {
 	setlocale(LC_ALL, "Russian");
-	string text, command, id; int key = 0;
+	string text, command, id, file; int key = 0;
 	vector <string> texts;
+	create_jsons(50);
 	
 	cout << setw((118 + 22)/2) << "Программа \"Шифр Цезаря\"\n";
 	cout << "Чтобы посмотреть справочник, введите --help\n";
 	
 	while (true) {
+		cout << "Введите комманду: ";
 		cin >> command;
 		if (command == "--help") {
-			cout << "\n--input - ввод текста\n--output - вывод зашифрованного текста по id\n--key - генерация ключа\n--exit - выход из программы\n\n";
-		}
-		else if (command == "--input") {
-			cout << "Введите текст: ";
-			cin.ignore();
-			getline(cin, text);
-			cout << "Введите id текста: ";
-			cin >> id;
-			create_json(text, id);
-			cout << "текст записан\n";
+			cout << "\n--output - вывод зашифрованного текста по id\n--key - генерация ключа\n--exit - выход из программы\n\n";
 		}
 		else if (command == "--output") {
 			if (!key) { 
 				key = rand_key(); 
 				cout << "Ваш ключ : " << key << "\n";
 			}
-			cout << "Введите id : ";
+			cout << "Введите название файла: ";
 			cin.ignore();
+			cin >> file;
+			if (!ifstream("JSON_Files/" + file)) {
+				cout << "Данного файла не существует. Повторите попытку.\n";
+				continue;
+			}
+			cout << "Введите id : ";
 			cin >> id;
-			texts = read_json(id, key);
-			for (string text : texts) cout << text << "\n";
+			texts = read_json(file, id, key);
+			cout << "Зашифрованные тексты: \n";
+			for (string text : texts) cout << caesar(text, key, true) << "\n";
 			create_log_json(texts, id, key);
 		}
 		else if (command == "--key") {
@@ -48,4 +50,6 @@ int main() {
 		}
 		else cout << "Неизвестная комманда\n";
 	}
+
+	filesystem::remove_all("JSON_Files");
 }
