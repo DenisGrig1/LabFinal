@@ -13,4 +13,4 @@
 
 
 ## Ресурсы: 
-C++, Visual Studio 2022.
+C++ 17, Visual Studio 2022.
