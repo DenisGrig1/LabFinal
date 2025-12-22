@@ -5,10 +5,19 @@
 #include <fstream>
 #include <cstdio>
 #include <vector>
+#include <filesystem>
 using namespace std;
 
 int rand_key() {
 	return 1 + rand() % 25;
+}
+
+string rand_text() {
+	string result;
+	for (int i = 0; i < 1 + (rand() % 1000); i++) {
+		result += char(97 + rand() % 26);
+	}
+	return result;
 }
 
 string caesar(string text, int key, bool mode) {
@@ -34,28 +43,40 @@ string caesar(string text, int key, bool mode) {
 	return new_text;
 }
 
-void create_json(string text, string id) {
-	if (ifstream("main.json")) {
-		string line; ifstream i_json("main.json");
-		ofstream json("main2.json");
-		while (getline(i_json, line)) {
-			if (line == "]") break;
-			if (line[line.length() - 1] == '}') line += ",";
-			json << line << "\n";
-		}
-		json << "\t{\"id\":\"" << id << "\",\"content\":\"" << text << "\"}" << "\n";
-		json << "]";
-		i_json.close(); json.close();
-		remove("main.json");
-		rename("main2.json", "main.json");
-	}
-	else {
-		ofstream json("main.json");
+void create_jsons(int n) {
+	filesystem::create_directories("JSON_Files");
+	for (int i = 1; i <= n; i++) {
+		ofstream json("JSON_Files/file" + to_string(i) + ".json");
 		json << "[\n";
-		json << "\t{\"id\":\"" << id << "\",\"content\":\"" << text << "\"}" << "\n";
+		for (int j = 0; j < rand()%1000; j++) {
+			json << "\t{\"id\":\"" << char(97 + rand() % 26) + to_string(rand() % 10) << "\",\"content\":\"" << rand_text() << "\"}," << "\n";
+		}
+		json << "\t{\"id\":\"" << char(97 + rand() % 26) + to_string(rand() % 10) << "\",\"content\":\"" << rand_text() << "\"}" << "\n";
 		json << "]";
 		json.close();
 	}
+}
+
+vector <string> read_json(string file, string id, int key) {
+	vector<string> texts;
+	ifstream json("JSON_Files/" + file); string str, part;
+	while (getline(json, str)) {
+		if (str != "[" && str != "]") {
+			stringstream sstr(str);
+			getline(sstr, part, ',');
+			if (part.substr(8, id.length()) == id) {
+				getline(sstr, part);
+				if (part[part.length() - 1] == ',') {
+					texts.push_back(part.substr(11, part.length() - 14));
+				}
+				else {
+					texts.push_back(part.substr(11, part.length() - 13));
+				}
+			}
+		}
+	}
+	json.close();
+	return texts;
 }
 
 void create_log_json(vector<string> texts, string id, int key) {
@@ -69,8 +90,8 @@ void create_log_json(vector<string> texts, string id, int key) {
 		}
 		for (int i = 0; i < texts.size(); i++) {
 			json << "\t\{\n";
-			json << "\t\t\"ts\":\"" << caesar(texts[i], key, false) << "\",\n";
-			json << "\t\t\"op\":\"" << texts[i] << "\",\n";
+			json << "\t\t\"ts\":\"" << texts[i] << "\",\n";
+			json << "\t\t\"op\":\"" << caesar(texts[i], key, true) << "\",\n";
 			json << "\t\t\"key\":\"" << key << "\",\n";
 			json << "\t\t\"id\":\"" << id << "\"\n";
 			json << (i == texts.size() - 1 ? "\t}\n" : "\t},\n");
@@ -85,8 +106,8 @@ void create_log_json(vector<string> texts, string id, int key) {
 		json << "[\n";
 		for (int i = 0; i < texts.size(); i++) {
 			json << "\t\{\n";
-			json << "\t\t\"ts\":\"" << caesar(texts[i], key, false) << "\",\n";
-			json << "\t\t\"op\":\"" << texts[i] << "\",\n";
+			json << "\t\t\"ts\":\"" << texts[i] << "\",\n";
+			json << "\t\t\"op\":\"" << caesar(texts[i], key, true) << "\",\n";
 			json << "\t\t\"key\":\"" << key << "\",\n";
 			json << "\t\t\"id\":\"" << id << "\"\n";
 			json << (i == texts.size() - 1 ? "\t}\n" : "\t},\n");
@@ -94,26 +115,4 @@ void create_log_json(vector<string> texts, string id, int key) {
 		json << "]";
 		json.close();
 	}
-}
-
-vector <string> read_json(string id, int key) {
-	vector<string> v;
-	ifstream json("main.json"); string str, part;
-	while (getline(json, str)) {
-		if (str != "[" && str != "]") {
-			stringstream sstr(str);
-			getline(sstr, part, ',');
-			if (part.substr(8, id.length()) == id) {
-				getline(sstr, part);
-				if (part[part.length() - 1] == ',') {
-					v.push_back(caesar(part.substr(11, part.length() - 14), key, true));
-				}
-				else {
-					v.push_back(caesar(part.substr(11, part.length() - 13), key, true));
-				}
-			}
-		}
-	}
-	json.close();
-	return v;
 }
