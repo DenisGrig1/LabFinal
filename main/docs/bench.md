@@ -15,17 +15,17 @@
 	}
 
 
-string text = rand_text(1000);
+	string text = rand_text(1000);
 
-auto start = chrono::steady_clock::now();
+	auto start = chrono::steady_clock::now();
 
-caesar(text, 10, true);
+	caesar(text, 10, true);
 
-auto end = chrono::steady_clock::now();
+	auto end = chrono::steady_clock::now();
 
-chrono::duration<double> duration = end - start;
+	chrono::duration<double> duration = end - start;
 
-cout << "Время выполнения функции составило " << duration.count() << " секунд";
+	cout << "Время выполнения функции составило " << duration.count() << " секунд";
 
 
 | Количество символов  | Время выполнения функции (сек) |
