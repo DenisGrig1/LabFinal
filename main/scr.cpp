@@ -11,7 +11,7 @@ int main() {
 	setlocale(LC_ALL, "Russian");
 	string text, command, id, file; int key = 0;
 	vector <string> texts;
-	create_jsons(50);
+	create_jsons(100);
 	
 	cout << setw((118 + 22)/2) << "Программа \"Шифр Цезаря\"\n";
 	cout << "Чтобы посмотреть справочник, введите --help\n";
@@ -31,12 +31,16 @@ int main() {
 			cin.ignore();
 			cin >> file;
 			if (!ifstream("JSON_Files/" + file)) {
-				cout << "Данного файла не существует. Повторите попытку.\n";
+				cout << "Данного файла не существует\n";
 				continue;
 			}
 			cout << "Введите id : ";
 			cin >> id;
 			texts = read_json(file, id, key);
+			if (!texts.size()) {
+				cout << "Нет текстов с данным id\n";
+				continue;
+			}
 			cout << "Зашифрованные тексты: \n";
 			for (string text : texts) cout << caesar(text, key, true) << "\n";
 			create_log_json(texts, id, key);
