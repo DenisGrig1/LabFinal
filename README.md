@@ -2,29 +2,26 @@
 Данная программа шифрует текст с помощью шифра Цезаря и сохраняет его в формате JSON. Выполнил студент группы МОАИС-О-25/1 Григорьев Денис
 ## Инструкция:
 #### --help - справка о всех командах программы;
-#### --input - ввод текста и его id;
 #### --output - шифрование текстов с заданным id по ключу, вывод зашифрованных текстов на консоль;
 #### --key - генерация ключа;
 #### --exit - выход из программы;
-#### Тексты и их id хранятся в файле main.json, история шифрования текстов хранится в файле log.json.
 ## Сценарий запуска
---input
-
-Введите текст: Attack at night
-
-Введите id текста: n
-
-текст записан
-
---key
+Введите комманду: --key
 
 Ваш ключ : 17
 
---output
+Введите комманду: --output
 
-Введите id : n
+Введите название файла: file99.json
 
-Rkkrtb rk ezxyk
+Введите id : x1
 
---exit
+Зашифрованные тексты:
 
+wnuscunuqrgoakhbrmgfypxsadzodmwrutvfwtropnbc
+
+ekbweulezvtvgjrhzzsvopvjrkockaaqkifazagjsnezdumcbzfele
+
+zsxdqfwmskjyirbctiildovfgbcocouxzkdlkovxwrc
+
+Введите комманду: --exit
